@@ -39,11 +39,11 @@ jobs:
     - name: Build iOS app
       run: |
         cd ios
-        xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/YourApp.xcarchive
+        xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive
 
     - name: Export IPA
-      run: |
-        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/YourApp.xcarchive -exportOptionsPlist ios/YourAppExportOptions.plist -exportPath ${{ github.workspace }}/YourApp.ipa
+    run: |
+        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive -exportOptionsPlist ios/KosuUygulamaExportOptions.plist -exportPath ${{ github.workspace }}/KosuUygulama.ipa
 
     - name: Upload IPA as artifact
       uses: actions/upload-artifact@v4
