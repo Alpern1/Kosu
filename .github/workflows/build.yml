@@ -51,7 +51,8 @@ jobs:
                      -exportPath $PWD/build
 
       - name: Upload IPA artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
+
         with:
           name: KosuUygulama-IPA
           path: $PWD/build/KosuUygulama.ipa
