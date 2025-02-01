@@ -18,4 +18,4 @@ jobs:
       - name: List Xcode Schemes
         run: |
           cd ios
-          xcodebuild -list -workspace KosuUygulama.xcworkspace
+          xcodebuild -list -workspace Kosu.xcworkspace
