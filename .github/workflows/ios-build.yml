@@ -10,38 +10,28 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
-
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Check out the code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '22.12.0' # React Native sürümünüzle uyumlu bir sürüm seçin
-        
-    - name: Install dependencies
-      run: |
-        npm install
-        if [ -d "ios" ]; then
+      - name: Set up Ruby for Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          gem install fastlane -NV
+          bundle install
+
+      - name: Build the app using Fastlane
+        run: |
           cd ios
-          pod install
-        else
-          echo "No ios directory found!"
-        fi
+          fastlane gym --scheme YourAppScheme
 
-    - name: Build iOS app(No signing)
-      run: |
-        cd ios
-        xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive CODE_SIGN_IDENTITY=""  CODE_SIGNING_REQUIRED=NO PROVISIONING_PROFILE_SPECIFIER=""
-
-    - name: Export IPA
-      run: |
-        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive -exportOptionsPlist ios/KosuUygulamaExportOptions.plist -exportPath ${{ github.workspace }}/KosuUygulama.ipa
-
-    - name: Upload IPA as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: KosuUygulama.ipa
-        path: ${{ github.workspace }}/KosuUygulama.ipa
+      - name: Upload IPA as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app.ipa
+          path: ios/build/*.ipa
