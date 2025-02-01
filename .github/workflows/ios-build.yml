@@ -31,7 +31,7 @@ jobs:
           fastlane gym --scheme YourAppScheme
 
       - name: Upload IPA as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app.ipa
           path: ios/build/*.ipa
