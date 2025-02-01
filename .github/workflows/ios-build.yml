@@ -12,7 +12,10 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+      - name: Check out the code
+        uses: actions/checkout@v2
+
       - name: List Xcode Schemes
         run: |
           cd ios
-          xcodebuild -list -workspace Kosu.xcworkspace
+          xcodebuild -list -workspace KosuUygulama.xcworkspace
