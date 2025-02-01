@@ -32,4 +32,4 @@ jobs:
         run: eas whoami  # Bu komut token sayesinde girişin doğru olduğunu doğrular.
 
       - name: Build the iOS app
-        run: eas build -p ios --profile development
+        run: eas build -p ios --profile development --non-interactive --skip-credentials-check
