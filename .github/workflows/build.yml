@@ -3,36 +3,33 @@ name: Build iOS App
 on:
   push:
     branches:
-      - master  # Ana branch'iniz.
+      - master  # Eğer başka bir branch kullanıyorsanız burayı değiştirin.
 
 jobs:
   build-ios:
-    runs-on: macos-latest  # Xcode için macOS ortamı gerekli.
+    runs-on: macos-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # GitHub Secrets'ta eklediğiniz Expo Access Token
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # GitHub reposunu alır.
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22.12.0'  # Kullandığınız Node.js sürümü.
+          node-version: '22.12.0'
 
       - name: Install dependencies
-        run: |
-          npm install  # Projenin bağımlılıklarını kurar.
+        run: npm install
 
       - name: Install Expo CLI
-        run: |
-          npm install -g expo-cli  # Expo CLI'yi kurar.
+        run: npm install -g expo-cli
 
       - name: Install EAS CLI
-        run: |
-          npm install -g eas-cli  # EAS CLI'yi kurar.
+        run: npm install -g eas-cli
 
-      - name: Log in to Expo
-        run: |
-          echo ${{ secrets.EXPO_TOKEN }} | eas login --token  # Expo'ya giriş yapar.
+      - name: Verify Expo Authentication
+        run: eas whoami  # Bu komut token sayesinde girişin doğru olduğunu doğrular.
 
       - name: Build the iOS app
-        run: |
-          eas build -p ios  # iOS uygulaması için build işlemini başlatır.
+        run: eas build -p ios
