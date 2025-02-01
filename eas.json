@@ -1,3 +1,4 @@
+
 {
   "cli": {
     "version": ">= 3.0.0"
@@ -6,8 +7,10 @@
     "development": {
       "ios": {
         "simulator": false,
-        "distribution": "internal",
-        "enterpriseProvisioning": "adhoc"
+        "distribution": "internal"
+      },
+      "android": {
+        "buildType": "apk"
       }
     }
   }
