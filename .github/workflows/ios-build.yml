@@ -1,4 +1,4 @@
-name: iOS Build
+name: iOS Build (No Signing)
 
 on:
   push:
@@ -21,11 +21,6 @@ jobs:
       with:
         node-version: '22.12.0' # React Native sürümünüzle uyumlu bir sürüm seçin
         
-    - name: Check if ios folder exists
-      run: |
-        ls -al
-
-
     - name: Install dependencies
       run: |
         npm install
@@ -36,10 +31,10 @@ jobs:
           echo "No ios directory found!"
         fi
 
-    - name: Build iOS app
+    - name: Build iOS app (No signing)
       run: |
         cd ios
-        xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive
+        xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive CODE_SIGN_IDENTITY="" PROVISIONING_PROFILE_SPECIFIER=""
 
     - name: Export IPA
       run: |
@@ -49,4 +44,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: KosuUygulama.ipa
-        path: ${{ github.workspace }}/YourApp.ipa
+        path: ${{ github.workspace }}/KosuUygulama.ipa
