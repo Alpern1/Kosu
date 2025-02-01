@@ -18,7 +18,7 @@ jobs:
       - name: Set up Ruby for Fastlane
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3.7'
+          ruby-version: '3.3.7'  # Ruby sürümünü ihtiyacınıza göre ayarlayabilirsiniz
 
       - name: Install dependencies
         run: |
@@ -28,7 +28,7 @@ jobs:
       - name: Build the app using Fastlane
         run: |
           cd ios
-          fastlane gym --scheme YourAppScheme
+          fastlane gym --scheme KosuUygulamaScheme  # YourAppScheme'i kendi scheme'inizle değiştirin
 
       - name: Upload IPA as artifact
         uses: actions/upload-artifact@v4
