@@ -12,9 +12,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alpern1.KosuUygulama",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +23,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "scheme": "KosuUygulama",
     "newArchEnabled": true,
     "icon": "./assets/icon.png",
@@ -32,6 +35,7 @@
       "eas": {
         "projectId": "3e4c4753-1021-477a-8957-1278f1e0d36c"
       }
+      
     }
   }
 }

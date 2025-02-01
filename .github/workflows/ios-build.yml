@@ -12,26 +12,8 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v2
-
-      - name: Set up Ruby for Fastlane
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3.7'  # Ruby sürümünü ihtiyacınıza göre ayarlayabilirsiniz
-
-      - name: Install dependencies
+    - name: List Xcode Schemes
         run: |
-          gem install fastlane -NV
-          bundle install
-
-      - name: Build the app using Fastlane
-        run: |
-          cd ios
-          bundle exec fastlane gym --scheme KosuUygulama
-
-      - name: Upload IPA as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: app.ipa
-          path: ios/build/*.ipa
+        cd ios
+        xcodebuild -list -workspace Kosu.xcworkspace
+    
