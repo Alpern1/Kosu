@@ -29,6 +29,10 @@ jobs:
         run: |
           npm install -g eas-cli  # EAS CLI'yi kurar.
 
+      - name: Log in to Expo
+        run: |
+          eas login --token ${{ secrets.EXPO_TOKEN }}  # Expo'ya giriş yapar.
+
       - name: Build the iOS app
         run: |
           eas build -p ios  # iOS uygulaması için build işlemini başlatır.
