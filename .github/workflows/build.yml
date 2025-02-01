@@ -31,7 +31,7 @@ jobs:
 
       - name: Log in to Expo
         run: |
-          eas login --token ${{ secrets.EXPO_TOKEN }}  # Expo'ya giriş yapar.
+          echo ${{ secrets.EXPO_TOKEN }} | eas login --token  # Expo'ya giriş yapar.
 
       - name: Build the iOS app
         run: |
