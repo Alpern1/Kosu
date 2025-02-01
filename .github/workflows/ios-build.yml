@@ -37,7 +37,7 @@ jobs:
         xcodebuild -exportArchive -archivePath ${{ github.workspace }}/YourApp.xcarchive -exportOptionsPlist ios/YourAppExportOptions.plist -exportPath ${{ github.workspace }}/YourApp.ipa
 
     - name: Upload IPA as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: YourApp.ipa
         path: ${{ github.workspace }}/YourApp.ipa
