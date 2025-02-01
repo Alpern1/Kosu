@@ -31,7 +31,7 @@ jobs:
           echo "No ios directory found!"
         fi
 
-    - name: Build iOS app (No signing)
+    - name: Build iOS app(No signing)
       run: |
         cd ios
         xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive CODE_SIGN_IDENTITY="" PROVISIONING_PROFILE_SPECIFIER=""
