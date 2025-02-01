@@ -1,0 +1,34 @@
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22.12.0'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install CocoaPods
+      run: |
+        cd ios
+        pod install --repo-update
+
+    - name: Clean Xcode build
+      run: |
+        rm -rf ios/build
+        xcodebuild clean -workspace ios/KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release
+
+    - name: Build iOS app
+      run: |
+        cd ios
+        xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive
+
+    - name: Export IPA
+      run: |
+        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive -exportOptionsPlist ios/KosuUygulamaExportOptions.plist -exportPath ${{ github.workspace }}/KosuUygulama.ipa
