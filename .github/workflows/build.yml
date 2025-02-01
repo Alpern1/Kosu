@@ -1,0 +1,27 @@
+name: Build iOS App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Set up Expo
+      run: npm install -g expo-cli
+      
+    - name: Build iOS app
+      run: expo build:ios --no-publish --clear-credentials
