@@ -3,29 +3,32 @@ name: Build iOS App
 on:
   push:
     branches:
-      - master  # Ana branşınızı kullanıyorsanız 'main', başka bir branş kullanıyorsanız onun adı.
+      - master  # Ana branch'iniz.
 
 jobs:
   build-ios:
-    runs-on: macos-latest  # GitHub Actions yalnızca macOS üzerinde çalışacak şekilde yapılandırılmıştır.
-
+    runs-on: macos-latest  # Xcode için macOS ortamı gerekli.
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2  # Kodunuzu GitHub'dan alır.
+        uses: actions/checkout@v2  # GitHub reposunu alır.
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22.12.0'  # Node.js sürümünüzü burada 22.12.0 olarak belirtiyoruz.
-      
+          node-version: '22.12.0'  # Kullandığınız Node.js sürümü.
+
       - name: Install dependencies
         run: |
-          npm install  # Proje bağımlılıklarını kurar.
+          npm install  # Projenin bağımlılıklarını kurar.
 
       - name: Install Expo CLI
         run: |
-          npm install -g expo-cli  # Expo CLI'yi global olarak kurar.
+          npm install -g expo-cli  # Expo CLI'yi kurar.
+
+      - name: Install EAS CLI
+        run: |
+          npm install -g eas-cli  # EAS CLI'yi kurar.
 
       - name: Build the iOS app
         run: |
-          eas build -p ios  # iOS uygulaması için build işlemi başlatılır.
+          eas build -p ios  # iOS uygulaması için build işlemini başlatır.
