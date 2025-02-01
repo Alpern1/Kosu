@@ -42,11 +42,11 @@ jobs:
         xcodebuild -workspace KosuUygulama.xcworkspace -scheme KosuUygulama -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive
 
     - name: Export IPA
-    run: |
+      run: |
         xcodebuild -exportArchive -archivePath ${{ github.workspace }}/KosuUygulama.xcarchive -exportOptionsPlist ios/KosuUygulamaExportOptions.plist -exportPath ${{ github.workspace }}/KosuUygulama.ipa
 
     - name: Upload IPA as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: YourApp.ipa
+        name: KosuUygulama.ipa
         path: ${{ github.workspace }}/YourApp.ipa
