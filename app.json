@@ -25,7 +25,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "kosuuygulamam",
+    "scheme": "KosuUygulama",
     "newArchEnabled": true,
     "icon": "./assets/icon.png",
     "extra": {

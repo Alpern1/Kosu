@@ -28,7 +28,7 @@ jobs:
       - name: Build the app using Fastlane
         run: |
           cd ios
-          fastlane gym --scheme KosuUygulamaScheme  # YourAppScheme'i kendi scheme'inizle değiştirin
+          bundle exec fastlane gym --scheme KosuUygulama
 
       - name: Upload IPA as artifact
         uses: actions/upload-artifact@v4
