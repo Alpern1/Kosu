@@ -18,7 +18,8 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alpern1.KosuUygulama"
     },
     "web": {
       "favicon": "./assets/favicon.png"
