@@ -1,13 +1,17 @@
-name: Build iOS App
+name: iOS Build
 
 on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
-    runs-on: macos-latest  # Bu, GitHub'ın sağladığı macOS ortamını kullanacak
+    runs-on: macos-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -15,22 +19,25 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'  # Kullanmakta olduğunuz Node.js sürümünü belirleyin
+        node-version: '22.12.0' # React Native sürümünüzle uyumlu bir sürüm seçin
 
     - name: Install dependencies
-      run: npm install
-
-    - name: Install Expo CLI
-      run: npm install -g expo-cli
+      run: |
+        npm install
+        cd ios
+        pod install
 
     - name: Build iOS app
-      run: expo build:ios --no-wait
-      env:
-        EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
-        EXPO_PASSWORD: ${{ secrets.EXPO_PASSWORD }}
+      run: |
+        cd ios
+        xcodebuild -workspace YourApp.xcworkspace -scheme YourApp -configuration Release -sdk iphoneos clean archive -archivePath ${{ github.workspace }}/YourApp.xcarchive
 
-    - name: Upload .ipa to Artifacts
+    - name: Export IPA
+      run: |
+        xcodebuild -exportArchive -archivePath ${{ github.workspace }}/YourApp.xcarchive -exportOptionsPlist ios/YourAppExportOptions.plist -exportPath ${{ github.workspace }}/YourApp.ipa
+
+    - name: Upload IPA as artifact
       uses: actions/upload-artifact@v2
       with:
-        name: ipa
-        path: build/*.ipa
+        name: YourApp.ipa
+        path: ${{ github.workspace }}/YourApp.ipa
